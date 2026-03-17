@@ -6,7 +6,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 29 |
+| Agents | 30 |
 | Commands | 23 |
 | Skills | 20 |
 | MCP Servers | 1 |
@@ -15,7 +15,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 Agents are organized into categories for easier discovery.
 
-### Review (15)
+### Review (16)
 
 | Agent | Description |
 |-------|-------------|
@@ -32,6 +32,7 @@ Agents are organized into categories for easier discovery.
 | `kieran-typescript-reviewer` | TypeScript code review with strict conventions |
 | `pattern-recognition-specialist` | Analyze code for patterns and anti-patterns |
 | `performance-oracle` | Performance analysis and optimization |
+| `pr-reviewability-analyst` | Analyze PR size, concern count, and file spread; propose splits |
 | `schema-drift-detector` | Detect unrelated schema.rb changes in PRs |
 | `security-sentinel` | Security audits and vulnerability assessments |
 
