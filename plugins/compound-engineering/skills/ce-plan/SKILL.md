@@ -207,6 +207,9 @@ Collect:
 - AGENTS.md guidance that materially affects the plan, with CLAUDE.md used only as compatibility fallback when present
 - Institutional learnings from `docs/solutions/`
 - Product strategy context when `STRATEGY.md` is present — flag any plan decisions that pull away from the active tracks or the stated approach
+- Existing skill, agent, and slash-command names in the target plugin (and adjacent plugins where relevant) when the plan introduces a new skill, agent, or named verb — flag collision or shared operative verbs (e.g., a new verb that matches an existing command's operative verb, even when the objects differ) for resolution before the name is locked in
+
+**Verify before claiming.** When the plan needs to cite a checkable fact — file path, schema enum value, agent description, behavioral claim about another skill, dependency name, config option — read the relevant source file to confirm. A claim like "Verified present in X as of <date>" is only legitimate when the verification actually happened. If a claim cannot be verified, label it as an unverified assumption rather than asserting it. Mirrors `ce-brainstorm`'s Phase 1.1 discipline — the same defect class (asserting an enum value exists when it does not, citing the wrong agent path, attributing one skill's behavior to another) shows up at planning time too.
 
 **Slack context** (opt-in) — never auto-dispatch. Route by condition:
 
@@ -496,6 +499,7 @@ Read `references/plan-template.md` for the core plan template (frontmatter, all 
 - Do not include git commands, commit messages, or exact test command recipes
 - Do not expand implementation units into micro-step `RED/GREEN/REFACTOR` instructions
 - Do not pretend an execution-time question is settled just to make the plan look complete
+- **Vendor-source paths must be reproducible.** When the plan cites a source-of-truth path for vendored content, vendor packages, or external references, the path must be either (a) a stable URL with a SHA/version pin (e.g., `github.com/owner/repo @ <sha>`), (b) a repo-tracked file at a known commit, or (c) explicitly framed as machine-local convenience that will be reconciled against an authoritative source before commit. Machine-local cache paths (`~/.claude/plugins/cache/...`, `/tmp/...`, `$TMPDIR/...`) are not source-of-truth and must not be cited as one — they are not reproducible across machines, CI, or different teammates' checkouts.
 
 #### 4.4 Visual Communication in Plan Documents
 
@@ -520,6 +524,9 @@ Before finalizing, check:
 - If the plan creates a new directory structure, would an Output Structure tree help reviewers see the overall shape?
 - If Scope Boundaries lists items that are planned work for a separate PR, issue, or repo, are they under `### Deferred to Follow-Up Work` rather than mixed with true non-goals?
 - U-IDs are unique within the plan and follow the stability rule — no two units share an ID; reordering or splitting did not renumber existing units; gaps from deletions are preserved
+- Every cited file path in the plan resolves at the cited location; every cited behavioral claim about another skill, agent, or schema has been verified against the source (Phase 1.1 verify-before-claiming discipline). "Verified present" wording is legitimate only when verification actually happened
+- Vendor source-of-truth paths in the plan are reproducible (stable URL + SHA, or repo-tracked at a known commit) — never machine-local cache paths (Phase 4.3 vendor-source rule)
+- If the plan introduces new skill, agent, or slash-command names, those names have been checked for collision or operative-verb overlap with existing names in the target plugin and adjacent plugins (Phase 1.1 naming-overlap scan); real overlap is either renamed or surfaced as a Key Technical Decision with rationale
 - Would a visual aid (dependency graph, interaction diagram, comparison table) help a reader grasp the plan structure faster than scanning prose alone?
 
 If the plan originated from a requirements document, re-read that document and verify:
